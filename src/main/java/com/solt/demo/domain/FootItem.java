@@ -1,5 +1,7 @@
 package com.solt.demo.domain;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnJava;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,12 +10,14 @@ import java.util.List;
 public class FootItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer foot_item_di;
+    @Column(name = "foot_item_id")
+    private Integer id;
     private String name;
     private Long quantity;
     @JoinColumn(name = "supplier_id")
     @ManyToOne
     private Supplier supplier;
+
     @ManyToMany(mappedBy = "footItems",cascade = CascadeType.PERSIST)
     private List<Animal> animals = new ArrayList<>();
     public FootItem(){}
@@ -39,12 +43,12 @@ public class FootItem {
         this.supplier = supplier;
     }
 
-    public Integer getFoot_item_di() {
-        return foot_item_di;
+    public Integer getId() {
+        return id;
     }
 
-    public void setFoot_item_di(Integer foot_item_di) {
-        this.foot_item_di = foot_item_di;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

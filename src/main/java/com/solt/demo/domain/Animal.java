@@ -8,7 +8,8 @@ import java.util.List;
 public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer animal_id;
+    @Column(name = "animal_id")
+    private Integer id;
     private String type;
     private double total_no;
     @OneToOne(mappedBy = "animal")
@@ -18,7 +19,9 @@ public class Animal {
     @ManyToOne
     private Category category;
 
-    @JoinTable(name = "animal_foot_item")
+    @JoinTable(name = "animal_foot_item",
+            joinColumns = { @JoinColumn(name = "animal_id") },
+            inverseJoinColumns = { @JoinColumn(name = "foot_item_id") })
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<FootItem> footItems = new ArrayList<>();
     public Animal(){}
@@ -52,12 +55,12 @@ public class Animal {
         this.footItems = footItems;
     }
 
-    public Integer getAnimal_id() {
-        return animal_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setAnimal_id(Integer animal_id) {
-        this.animal_id = animal_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getType() {
